@@ -62,3 +62,19 @@ RC = [
     0x1B,
     0x36
 ]
+
+function KeyExpansion(K)
+    N_rounds = 10
+    N_key = 4
+    W = zeros(UInt8, 4, 4*(N_rounds+1))
+    W[:,1:4] = K
+    
+    for i = (N_key+1):(4*(N_rounds+1))
+        if (i % N_key) == 0
+            W[:,i] = W[:,i-N_key] .⊻ SubByte.(W[:,i-1])
+        else
+            W[:,i] = W[:,i-N_key] .⊻ W[:,i-1]
+        end
+    end
+    return W
+end
