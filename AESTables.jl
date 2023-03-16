@@ -78,3 +78,22 @@ function KeyExpansion(K)
     end
     return W
 end
+
+HumptyDumpty = strip("""
+Humpty Dumpty sat on a wall.
+Humpty Dumpty had a great fall.
+All the king's horses and all the king's men
+Couldn't put Humpty together again.
+""")
+
+Lorem = strip("""
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur condimentum vitae tortor nec congue. Ut felis est, posuere viverra ex id, pharetra pulvinar odio. Nulla placerat mi sed pharetra efficitur. Curabitur a faucibus elit, vitae laoreet augue. Nulla finibus, orci non porta gravida, tellus lectus scelerisque lorem, ut iaculis turpis enim nec velit. In porttitor arcu ac justo scelerisque, et venenatis quam posuere. Nulla iaculis, lectus vitae fermentum tristique, urna neque vestibulum tellus, id congue dui nulla eget tellus. Mauris et turpis iaculis arcu convallis consectetur ac ac purus. Praesent fringilla hendrerit lacus, vitae blandit purus elementum vel. Donec vehicula arcu felis, non vulputate libero ultrices at. Fusce posuere, augue at imperdiet pulvinar, neque tortor dictum elit, nec sollicitudin neque sem eu leo. Sed eget accumsan nisl. Sed dictum quis massa in varius. Pellentesque a eleifend felis, sit amet rutrum metus. Mauris sit amet nulla lorem. In tempor quis libero vitae consectetur.
+
+Sed hendrerit lectus placerat mi viverra, et pharetra mauris consectetur. Donec non iaculis orci. Suspendisse varius nulla accumsan tortor pharetra fermentum. Ut vitae ligula eu nunc eleifend varius et quis leo. Sed in tempus ipsum. Suspendisse ac mauris arcu. Cras faucibus magna nec metus vulputate, sit amet feugiat mi laoreet.
+
+Ut id gravida ipsum, sed semper urna. Curabitur non ullamcorper neque, vel commodo nisl. Ut in dolor leo. Nunc lacinia lacinia semper. Nulla facilisi. Donec ac condimentum nunc. Fusce lacinia ultrices ex eget gravida. In sagittis magna vitae sem pulvinar, sit amet ultrices felis efficitur. Aenean vestibulum finibus rhoncus.
+
+Etiam consectetur vulputate faucibus. Aenean dapibus lacus a enim efficitur aliquet. Donec sed magna felis. Nam non arcu sed nibh aliquet lacinia sed eget nisi. Mauris vel mollis quam, eget vestibulum mauris. In non felis quis massa pharetra laoreet. Fusce scelerisque eleifend neque, sed tristique felis faucibus ut.
+
+Vivamus eget diam a lectus accumsan accumsan. Donec eu mollis lacus. Etiam et semper nisi. Mauris consectetur commodo est vitae consectetur. Sed a nisi vitae lorem posuere suscipit. Morbi placerat magna vitae malesuada convallis. Sed condimentum vitae ipsum quis egestas. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum pulvinar a tellus eget facilisis. Sed et dapibus urna, sed ullamcorper urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla non justo dictum, bibendum ligula vitae, vehicula arcu. Donec eu nulla nec augue malesuada pulvinar pretium vel lectus. Duis rhoncus nulla sit amet neque vestibulum laoreet. Aliquam a commodo libero, eget maximus dui. In ante libero, congue nec tellus et, semper ultrices dolor. 
+""")
