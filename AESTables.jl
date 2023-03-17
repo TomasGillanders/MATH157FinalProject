@@ -63,6 +63,12 @@ RC = [
     0x36
 ]
 
+# Used within the function `KeyExpansion`.
+function SubByte(a)
+    # Add 1 to the index because the arrays are 1 indexed.
+    return SBOX[Int(a+1)]
+end
+
 function KeyExpansion(K)
     N_rounds = 10
     N_key = 4
