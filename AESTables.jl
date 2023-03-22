@@ -85,6 +85,22 @@ function KeyExpansion(K)
     return W
 end
 
+function mul(a,b)
+    prod::UInt8 = 0
+    for _ = 1:8
+        if (b & 1) != 0
+            prod = prod ⊻ a
+        end
+        overflow = ((a & 0x80) != 0)
+        a = a << 1
+        if overflow
+            a = a ⊻ 0x1b
+        end
+        b = b >> 1
+    end
+    prod
+end
+
 HumptyDumpty = strip("""
 Humpty Dumpty sat on a wall.
 Humpty Dumpty had a great fall.
