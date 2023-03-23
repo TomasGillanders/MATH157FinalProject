@@ -1,3 +1,4 @@
+# S-BOX DEFINITION
 SBOX = [
 0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
 0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
@@ -17,6 +18,7 @@ SBOX = [
 0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16
 ];
 
+# INVERSE S-BOX DEFINITION
 INVSBOX = [
 0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb,
 0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb,
@@ -36,6 +38,7 @@ INVSBOX = [
 0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d
 ];
 
+# MixColumns MATRIX DEFINITION
 MixMat = [
     0x02 0x03 0x01 0x01
     0x01 0x02 0x03 0x01
@@ -43,6 +46,7 @@ MixMat = [
     0x03 0x01 0x01 0x02
 ]
 
+# InvMixColumns MATRIX DEFINITION
 InvMixMat = [
     0x0e 0x0b 0x0d 0x09
     0x09 0x0e 0x0b 0x0d
@@ -50,18 +54,8 @@ InvMixMat = [
     0x0b 0x0d 0x09 0x0e
 ]
 
-RC = [
-    0x01,
-    0x02,
-    0x04,
-    0x08,
-    0x10,
-    0x20,
-    0x40,
-    0x80,
-    0x1B,
-    0x36
-]
+# LIST OF ROUND CONSTANTS
+RC = [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a, 0x2f, 0x5e, 0xbc, 0x63, 0xc6]
 
 # Used within the function `KeyExpansion`.
 function SubByte(a)
@@ -69,15 +63,23 @@ function SubByte(a)
     return SBOX[Int(a+1)]
 end
 
+# KEY EXPANSION FUNCTION
 function KeyExpansion(K)
     N_rounds = 10
-    N_key = 4
+    N_key = size(K, 2)
+
+    if !((N_key == 4) || (N_key == 6))
+        error("Key Length Prohibited")
+    end
+
     W = zeros(UInt8, 4, 4*(N_rounds+1))
-    W[:,1:4] = K
+    W[:,1:N_key] = K
     
     for i = (N_key+1):(4*(N_rounds+1))
         if (i % N_key) == 0
-            W[:,i] = W[:,i-N_key] .⊻ SubByte.(W[:,i-1])
+            RCon = zeros(UInt8, 4)
+            RCon[1] = RC[Int(i/N_key)]
+            W[:,i] = W[:,i-N_key] .⊻ SubByte.(W[:,i-1]) .⊻ RCon
         else
             W[:,i] = W[:,i-N_key] .⊻ W[:,i-1]
         end
@@ -85,6 +87,26 @@ function KeyExpansion(K)
     return W
 end
 
+# OLD KEY EXPANSION FUNCTION (SIMPLIFIED)
+# NOT USED IN PROJECT BUT USED FOR TESTING
+# function ____KeyExpansionOLD____(K)
+#     N_rounds = 10
+#     N_key = 4
+#     W = zeros(UInt8, 4, 4*(N_rounds+1))
+#     W[:,1:4] = K
+    
+#     for i = (N_key+1):(4*(N_rounds+1))
+#         if (i % N_key) == 0
+#             W[:,i] = W[:,i-N_key] .⊻ SubByte.(W[:,i-1])
+#         else
+#             W[:,i] = W[:,i-N_key] .⊻ W[:,i-1]
+#         end
+#     end
+#     return W
+# end
+
+
+# MULTIPLICATION FUNCTION FOR GF(2^8)
 function mul(a,b)
     prod::UInt8 = 0
     for _ = 1:8
@@ -101,6 +123,8 @@ function mul(a,b)
     prod
 end
 
+
+# HUMPTY DUMPTY
 HumptyDumpty = strip("""
 Humpty Dumpty sat on a wall.
 Humpty Dumpty had a great fall.
@@ -108,6 +132,7 @@ All the king's horses and all the king's men
 Couldn't put Humpty together again.
 """)
 
+# TEXT FOR ENCRYPTING
 Lorem = strip("""
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur condimentum vitae tortor nec congue. Ut felis est, posuere viverra ex id, pharetra pulvinar odio. Nulla placerat mi sed pharetra efficitur. Curabitur a faucibus elit, vitae laoreet augue. Nulla finibus, orci non porta gravida, tellus lectus scelerisque lorem, ut iaculis turpis enim nec velit. In porttitor arcu ac justo scelerisque, et venenatis quam posuere. Nulla iaculis, lectus vitae fermentum tristique, urna neque vestibulum tellus, id congue dui nulla eget tellus. Mauris et turpis iaculis arcu convallis consectetur ac ac purus. Praesent fringilla hendrerit lacus, vitae blandit purus elementum vel. Donec vehicula arcu felis, non vulputate libero ultrices at. Fusce posuere, augue at imperdiet pulvinar, neque tortor dictum elit, nec sollicitudin neque sem eu leo. Sed eget accumsan nisl. Sed dictum quis massa in varius. Pellentesque a eleifend felis, sit amet rutrum metus. Mauris sit amet nulla lorem. In tempor quis libero vitae consectetur.
 
