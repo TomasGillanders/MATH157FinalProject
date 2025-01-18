@@ -9,7 +9,7 @@ The project outlines the mathematical foundation, implementation and the use of 
 The material is presented in the form of a lecture that was presented to a group of peers, together with a set of homework problems and 
 solutions; posed as to test and further ones understanding of the material presented.
 
-The code presented in this project was written using the Julia Progamming Language, which was the language utilized throughout the course, and
+The code presented in this project was written using the Julia Programming Language, which was the language utilized throughout the course, and
 the presentation was produced in the form of a Jupyter notebook.
 
 The presentation of the material covered by this project was assessed on the basis of Presentation, Topic Coverage, the Exercises and Solutions,
